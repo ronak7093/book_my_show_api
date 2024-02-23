@@ -1,17 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from "mongoose";
 import { Movie } from './movie.schema';
+import { User } from './user.schema';
 
 @Schema()
-export class Language {
+export class Genres {
     @Prop()
-    code: string
+    genresTitle: string
 
-    @Prop()
-    languageName: string
-
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Movie" })
-    movie: Movie;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
+    user: User;
 
     @Prop({ default: Date.now, required: true })
     createdAt: Date;
@@ -20,6 +18,4 @@ export class Language {
     updatedAt: Date;
 }
 
-export const LanguageSchema = SchemaFactory.createForClass(Language);
-
-
+export const GenresSchema = SchemaFactory.createForClass(Genres);

@@ -33,15 +33,9 @@ export class AuthController {
     }
 
     @Post('/admin')
-    async adminLogin(@Body() body, @Request() req) {
+    async newAdmin(@Body() req: AdminDto) {
         try {
-            let response = await this.authService.userLogin(
-                {
-                    body: body,
-                    type: 'admin',
-                },
-                req,
-            )
+            let response = await this.authService.newAdmin(req)
             return response
         } catch (error) {
             console.error(error, 'err')

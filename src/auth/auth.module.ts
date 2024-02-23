@@ -3,7 +3,6 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from 'src/models/user.schema';
-import { RoleSchema } from 'src/models/role.schema';
 import { UserMetaSchema } from 'src/models/userMeta.schema';
 import { EmailOtpSchema } from 'src/models/emailOtp.schema';
 import { EmailService } from 'src/email/email.service';
@@ -19,7 +18,6 @@ import { JwtService } from '@nestjs/jwt';
   imports: [
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },
-      { name: 'Role', schema: RoleSchema },
       { name: 'UserMeta', schema: UserMetaSchema },
       { name: 'EmailOtp', schema: EmailOtpSchema },
       { name: 'Movie', schema: MovieSchema },

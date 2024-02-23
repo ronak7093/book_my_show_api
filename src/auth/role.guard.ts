@@ -9,32 +9,22 @@ import mongoose from "mongoose";
 import { MESSAGE_CONSTANT } from 'src/constant/message';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/models/user.schema';
-import { Role } from 'src/models/role.schema';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
     constructor(
         @InjectModel("User") private userModel: mongoose.Model<User>,
-        @InjectModel("Role") private roleModel: mongoose.Model<Role>,
         private reflector: Reflector,
     ) { }
 
     async canActivate(context: ExecutionContext): Promise<any> {
         const request = context.switchToHttp().getRequest();
-        console.log(request, 'request??????????????????');
 
-
-        // let userRoles = await this.roleModel.aggregate([
-
-        // ])
-
-        const userRoles = await this.roleModel
+        const userRoles = await this.userModel
             .findOne({
                 isAdmin: true,
-                user: request.user.userRecord.id,
+                _id: request.user,
             })
-            .populate('User');
-        console.log(userRoles, 'userRoles');
 
         if (!userRoles) {
             throw new UnauthorizedException({

@@ -17,6 +17,15 @@ export const MESSAGE_CONSTANT = {
     OTP_EXPIRED: 'otp expired!',
     ONLY_ADMIN_CAN_ACCESS: "admin can access",
     CATEGORY_ALREADY_EXISTS: "category already exists",
+    GENRES_ALREADY_EXISTS: "genres already exists",
+    THEATRE_ALREADY_EXISTS: "theatre already exists",
+    LANGUAGE_ALREADY_EXISTS: "language already exists",
+    MOVIE_RECORD_ALREADY_EXISTS: "movie record already exists",
+    GENRES_DOSE_NOT_EXISTS: "genres does not exists",
+    THEATRE_DOSE_NOT_EXISTS: "theatre does not exists",
+    LANGUAGE_DOSE_NOT_EXISTS: "language does not exists",
+    MOVIE_NOT_FOUND: "movie not found",
+
 
     /**
      * Success Message
@@ -30,5 +39,13 @@ export const MESSAGE_CONSTANT = {
     PDF_ADDED_SUCCESSFULLY: "pdf added successfully",
     PDF_DELETED_SUCCESSFULLY: "pdf delete successfully",
     PASSWORD_CHANGED_SUCCESSFULLY: "Password Changed Successfully",
-    ADMIN_CREATE_SUCCESSFULLY: "admin create successfully"
+    ADMIN_CREATE_SUCCESSFULLY: "admin create successfully",
+    ADMIN_LOGIN_SUCCESSFULLY: "admin login successfully",
+    CATEGORY_ADD_SUCCESSFULLY: "category add successfully",
+    GENRES_ADD_SUCCESSFULLY: "genres add successfully",
+    THEATRE_ADD_SUCCESSFULLY: "theatre add successfully",
+    LANGUAGE_ADD_SUCCESSFULLY: "language add successfully",
+    MOVIE_ADD_SUCCESSFULLY: "movie add successfully",
+    MOVIE_UPDATE_SUCCESSFULLY: "movie update successfully",
+    MOVIE_DELETE_SUCCESSFULLY: "movie delete successfully",
 };

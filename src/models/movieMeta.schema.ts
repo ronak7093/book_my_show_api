@@ -1,10 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { User } from "./user.schema";
 import mongoose from "mongoose";
-
+import { Movie } from "./movie.schema";
 
 @Schema()
-export class UserMeta {
+export class MovieMeta {
     @Prop()
     originalname: string;
 
@@ -23,16 +22,13 @@ export class UserMeta {
     @Prop()
     location: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
-    user: User;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Movie" })
+    movie: Movie;
 
     @Prop({ default: Date.now })
     createdAt: Date;
 
     @Prop({ default: Date.now })
     updatedAt: Date;
-
 }
-export const UserMetaSchema = SchemaFactory.createForClass(UserMeta);
-
-
+export const MovieMetaSchema = SchemaFactory.createForClass(MovieMeta);

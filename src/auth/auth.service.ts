@@ -9,7 +9,6 @@ import { EmailUserDto } from './dto/emailUser.dto';
 import * as moment from 'moment';
 import { JwtService } from '@nestjs/jwt';
 import { VerifyOtpDto } from './dto/verifyotp.dto';
-import { Role } from 'src/models/role.schema';
 import { AdminDto } from './dto/admin.dto';
 
 
@@ -20,7 +19,6 @@ export class AuthService {
         private readonly emailService: EmailService,
         @InjectModel("User") private userModel: mongoose.Model<User>,
         @InjectModel("EmailOtp") private emailOtpModel: mongoose.Model<EmailOtp>,
-        @InjectModel("Role") private roleModel: mongoose.Model<Role>,
     ) { }
 
 
@@ -137,36 +135,46 @@ export class AuthService {
         }
     }
 
-    async userLogin(payload, req) {
-        try {
-            let userRecord = await this.userModel.findOne({
-                email: payload.email
+    async newAdmin(req: AdminDto) {
+        const existingUser = await this.userModel.findOne({
+            email: req.email,
+            isAdmin: true
+        });
+        console.log(existingUser, 'existing');
+
+        if (existingUser) {
+            const token = { id: existingUser._id, email: existingUser.email, isAdmin: existingUser.isAdmin };
+            // return {
+            let access_token = await this.jwtService.sign(token, {
+                secret: "qwertyUiopAskdvGfcxSHJ",
+                expiresIn: "1w",
             })
-            // .populate('role')
-
-            console.log(userRecord, 'user');
-
-            return
-            if (payload.type == 'admin') {
-                if (userRecord.role.isAdmin === true) {
-
-                    const token = { id: userRecord._id, email: userRecord.email, number: userRecord.phoneNumber };
-                    // return {
-                    let access_token = await this.jwtService.sign(token, {
-                        secret: "qwertyUiopAskdvGfcxSHJ",
-                        expiresIn: "1w",
-                    })
-
-                    return {
-                        data: access_token
-                    }
-
-                }
+            return {
+                code: 200,
+                data: access_token,
+                message: MESSAGE_CONSTANT.ADMIN_LOGIN_SUCCESSFULLY,
+                status: 'success'
             }
+        }
 
-        } catch (error) {
-            console.error(error, 'error')
+        if (!existingUser) {
+            const adminUser = await this.userModel.create({
+                email: req.email,
+                isAdmin: true
+            })
+            await adminUser.save()
+            const token = { id: adminUser._id, email: adminUser.email, isAdmin: adminUser.isAdmin };
+            // return {
+            let access_token = await this.jwtService.sign(token, {
+                secret: "qwertyUiopAskdvGfcxSHJ",
+                expiresIn: "1w",
+            })
+            return {
+                code: 200,
+                data: access_token,
+                message: MESSAGE_CONSTANT.ADMIN_CREATE_SUCCESSFULLY,
+                status: 'success'
+            }
         }
     }
-
 }

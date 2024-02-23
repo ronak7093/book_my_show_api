@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Gender } from 'src/enum/gender.enum';
 import mongoose from "mongoose";
 import { EmailOtp } from './emailOtp.schema';
-import { Role } from './role.schema';
 
 @Schema()
 export class User {
@@ -52,11 +51,11 @@ export class User {
     @Prop({ default: false })
     isActive: boolean;
 
+    @Prop({ default: false })
+    isAdmin: boolean
+
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "EmailOtp" })
     emailOtp: EmailOtp;
-
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Role" })
-    role: Role;
 
     @Prop({ default: Date.now, required: true })
     createdAt: Date;
