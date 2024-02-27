@@ -16,6 +16,7 @@ import { GenresMovieSchema } from 'src/models/genresMovie.schema';
 import { TheatreMovieSchema } from 'src/models/theatreMovie.schema';
 import { LanguageSchema } from 'src/models/language.schema';
 import { LanguageMovieSchema } from 'src/models/languageMovie.schema';
+import { ShowSchema } from 'src/models/show.schema';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { LanguageMovieSchema } from 'src/models/languageMovie.schema';
       { name: 'TheatreMovie', schema: TheatreMovieSchema },
       { name: 'Language', schema: LanguageSchema },
       { name: 'LanguageMovie', schema: LanguageMovieSchema },
+      { name: 'Show', schema: ShowSchema },
     ])
   ],
   controllers: [AdminController],

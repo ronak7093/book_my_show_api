@@ -9,6 +9,7 @@ import { GenresDto } from './dto/genres.dto';
 import { TheatreDto } from './dto/theatre.dto';
 import { LanguageDto } from './dto/language.dto';
 import { UpdateMovieDto } from './dto/updateMovie.dto';
+import { ShowDto } from './dto/show.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -150,6 +151,7 @@ export class AdminController {
         }
     }
 
+    //get movieList By Id
     @Get('/movie-List/:id')
     @UseGuards(JwtAuthGuard)
     async doGetMovieById(@Param() mId, @Request() req) {
@@ -183,6 +185,19 @@ export class AdminController {
     async doDeleteMovie(@Request() req, @Param() movie) {
         try {
             let response = await this.adminService.doDeleteMovie(req.user, movie)
+            return response
+        } catch (error) {
+            console.error(error, 'error')
+            throw new HttpException(error, 400)
+        }
+    }
+
+    //Add-show
+    @Post('/add-show')
+    @UseGuards(JwtAuthGuard, RoleGuard)
+    async doAddShow(@Body() body: ShowDto, @Request() req) {
+        try {
+            let response = await this.adminService.doAddShow(body, req.user)
             return response
         } catch (error) {
             console.error(error, 'error')

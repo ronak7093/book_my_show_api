@@ -17,6 +17,7 @@ import { TheatreMovie } from 'src/models/theatreMovie.schema';
 import { LanguageMovie } from 'src/models/languageMovie.schema';
 import { ObjectId } from "mongodb";
 import { UpdateMovieDto } from './dto/updateMovie.dto';
+import { Show } from 'src/models/show.schema';
 
 
 @Injectable()
@@ -30,6 +31,7 @@ export class AdminService {
         @InjectModel("TheatreMovie") private theatreMovieModel: mongoose.Model<TheatreMovie>,
         @InjectModel("Language") private languageModel: mongoose.Model<Language>,
         @InjectModel("LanguageMovie") private languageMovieModel: mongoose.Model<LanguageMovie>,
+        @InjectModel("Show") private showModel: mongoose.Model<Show>
     ) { }
 
     async doAddCategories(payload: CategoriesDto, loginPayload) {
@@ -729,6 +731,20 @@ export class AdminService {
                 message: MESSAGE_CONSTANT.MOVIE_DELETE_SUCCESSFULLY,
                 code: 200
             }
+        }
+    }
+
+    async doAddShow(payload, movie) {
+        try {
+            console.log(payload, 'payload');
+
+            let movieRecord = await this.movieModel.findById({
+                _id: new mongoose.Types.ObjectId(movie)
+            })
+            console.log(movieRecord, 'movieRecord');
+
+        } catch (error) {
+            console.log(error, 'error');
         }
     }
 }
